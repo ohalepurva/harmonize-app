@@ -1,0 +1,202 @@
+import { Button } from "@/components/ui/button";
+import Calendar from "@/components/ui/calendar";
+import DateTime from "@/components/ui/dateTime";
+import { Input } from "@/components/ui/input";
+import { Select } from "@radix-ui/react-select";
+import { title } from "process";
+
+export const initialDetails = [
+  {
+    id: 1,
+    firstName: "Purva",
+    lastName: "Ohale",
+    primaryNumber: 93635363825,
+    alternateNumber: 9856473897,
+    status: "Interested",
+    course: "Drums",
+    mode: "online",
+    gender: "Female",
+    dateOfBirth: "1996 - 09 - 01",
+    location: "Bangalore",
+    source: "Social media",
+    enquiryMessage: "",
+    whyMusic: "hobby",
+    pastExperience: "no",
+    email: "ohalepurva@gmail.com",
+  },
+  {
+    id: 2,
+    firstName: "Prachi",
+    lastName: "Ohale",
+    primaryNumber: 93635363825,
+    alternateNumber: 9856473897,
+    status: "Interested",
+    course: "Drums",
+    mode: "online",
+    gender: "Female",
+    dateOfBirth: "1996 - 09 - 01",
+    location: "Bangalore",
+    source: "Social media",
+    enquiryMessage: "",
+    whyMusic: "hobby",
+    pastExperience: "no",
+    email: "ohalepurva@gmail.com",
+  },
+  {
+    id: 3,
+    firstName: "Adwait",
+    lastName: "Kulkarni",
+    primaryNumber: 93635363825,
+    alternateNumber: 9856473897,
+    status: "Interested",
+    course: "Drums",
+    mode: "online",
+    gender: "Female",
+    dateOfBirth: "1996 - 09 - 01",
+    location: "Bangalore",
+    source: "Social media",
+    enquiryMessage: "",
+    whyMusic: "hobby",
+    pastExperience: "no",
+    email: "ohalepurva@gmail.com",
+  },
+  {
+    id: 4,
+    firstName: "Sunita",
+    lastName: "Ohale",
+    primaryNumber: 93635363825,
+    alternateNumber: 9856473897,
+    status: "Interested",
+    course: "Drums",
+    mode: "online",
+    gender: "Female",
+    dateOfBirth: "1996 - 09 - 01",
+    location: "Bangalore",
+    source: "Social media",
+    enquiryMessage: "",
+    whyMusic: "hobby",
+    pastExperience: "no",
+    email: "ohalepurva@gmail.com",
+  },
+  {
+    id: 5,
+    firstName: "Shashikant",
+    lastName: "Ohale",
+    primaryNumber: 93635363825,
+    alternateNumber: 9856473897,
+    status: "Interested",
+    course: "Drums",
+    mode: "online",
+    gender: "Female",
+    dateOfBirth: "1996 - 09 - 01",
+    location: "Bangalore",
+    source: "Social media",
+    enquiryMessage: "",
+    whyMusic: "hobby",
+    pastExperience: "no",
+    email: "ohalepurva@gmail.com",
+  },
+];
+
+export const fields = [
+  { label: "First Name", type: Input, value: "fName" },
+  { label: "Last Name", type: Input },
+  { label: "Primary number", type: Input },
+  { label: "Alternate number", type: Input },
+  {
+    label: "Status",
+    type: Select,
+    options: ["Interested", "Enrolled", "Not Interested"],
+  },
+  { label: "Email", type: Input },
+  { label: "Date of Birth", type: Calendar },
+  { label: "Location", type: Input },
+  { label: "Course", type: Select, options: ["Drums", "Piano", "Guitar"] },
+  { label: "Mode", type: Select, options: ["Online", "Offline"] },
+  { label: "Gender", type: Select, options: ["Female", "Male", "Other"] },
+  { label: "Callback Date & Time", type: DateTime },
+  { label: "Source", type: Select, options: ["Female", "Male", "Other"] },
+  { label: "Past Experience", type: Select, options: ["Yes", "No"] },
+  { label: "Why Music?", type: Input },
+  { label: "Enquiry Message", type: Input },
+];
+
+export const leadsTablecolumns = [
+  {
+    title: "Name",
+    colspan: 3,
+  },
+  {
+    title: "Phone",
+    colspan: 3,
+  },
+  {
+    title: "Status",
+    colspan: 2,
+  },
+  {
+    title: "Course",
+    colspan: 2,
+  },
+];
+
+export const createCourseFields = [
+  {
+    label: "Course Name",
+    type: Input,
+    value: "courseName",
+  },
+  {
+    label: "Course Description",
+    type: Input,
+    value: "courseDescription",
+  },
+  {
+    label: "Image",
+    type: Input,
+    value: "courseImage",
+  },
+  {
+    label: "Fees Type",
+    type: Select,
+    value: "feesType",
+    options: ["One time", "Subscription"],
+    // options: [
+    //   { label: "One time", value: "oneTime" },
+    //   { label: "Subscription", value: "subscription" },
+    // ],
+  },
+  {
+    label: "Add a Plan",
+    type: Input,
+    value: "planName",
+  },
+  {
+    label: "Billing Cycle",
+    type: Select,
+    value: "billingCycle",
+    options: ["Number of Days", "Number of Weeks", "Number of Months"],
+  },
+  {
+    label: "Batch Type",
+    type: Select,
+    value: "batchType",
+    options: ["VIP", "Group"],
+  },
+  {
+    label: "Batches/week",
+    type: Input,
+    value: "batchesPerWeek",
+  },
+  {
+    label: "Price",
+    type: Input,
+    value: "price",
+  },
+  {
+    label: "",
+    type: Button,
+    value: "upload",
+    title: "Upload",
+  },
+];
