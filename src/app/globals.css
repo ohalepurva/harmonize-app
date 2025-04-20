@@ -127,6 +127,7 @@
 
 input[type="date"],
 input[type="datetime-local"] {
+  color: oklch(0.556 0 0);
   font-size: 1rem;
   letter-spacing: 0.1rem;
   min-width: 12rem;

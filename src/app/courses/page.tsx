@@ -9,13 +9,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Leads from "../dashboard/_components/leads";
-import LeadDetails from "../dashboard/_components/leadDetails";
+import Leads from "../dashboard/_components/listTable";
+import LeadDetails from "../dashboard/_components/leadDetailsForm";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
-import FormField from "@/components/ui/formField";
+import FormField from "@/components/ui/customFormField";
 import { convertToCamelCase } from "@/lib/utils";
 import { createCourseFields } from "@/lib/constants";
+import UploadFile from "@/components/ui/UploadFile";
 
 const Courses = () => {
   const [courseDetails, setCourseDetails] = useState({});
@@ -54,7 +55,7 @@ const Courses = () => {
               className="w-full h-full mx-auto p-6 text-white rounded-2xl shadow-md space-y-4"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {createCourseFields?.map((field) => {
+                {/* {createCourseFields?.map((field) => {
                   const name = convertToCamelCase(field.label);
                   return (
                     <div key={convertToCamelCase(field.label)}>
@@ -73,13 +74,19 @@ const Courses = () => {
                       />
                     </div>
                   );
-                })}
+                })} */}
+                <div className="h-[4rem] flex items-end justify-center">
+                  <Label></Label>
+                  <Button>
+                    <UploadFile />
+                  </Button>
+                </div>
               </div>
               <div className="grid grid-cols-2 divide-x-2 gap-1 px-4 py-2 rounded-lg">
-                <Button size={"sm"} variant={"secondary"} type="submit">
+                <Button size={"lg"} variant={"secondary"} type="submit">
                   Save Changes
                 </Button>
-                <Button size={"sm"} variant={"secondary"}>
+                <Button size={"lg"} variant={"secondary"}>
                   Publish Course
                 </Button>
               </div>

@@ -1,37 +1,84 @@
 "use client";
 
 import { useState } from "react";
-import LeadDetails from "./_components/leadDetails";
-import Leads from "./_components/leads";
+import ListTable from "./_components/listTable";
+import ActivityLogs from "./_components/activityLogs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ActionsFooter from "./_components/actionsFooter";
+import { initialDetails, leadsTablecolumns } from "@/lib/constants";
+import LeadDetailsForm from "./_components/leadDetailsForm";
 
 const Dashboard = () => {
   const [selectedUser, setSelectedUser] = useState(null);
-  console.log({ selectedUser });
+  const [isActive, setIsActive] = useState();
   return (
     <div className="h-screen w-full flex justify-center items-center p-6">
       <div className="grid h-full w-full grid-cols-10 grid-rows-4 gap-4">
         <div className="bg-card col-span-4 row-span-2 rounded-3xl flex justify-center items-center">
-          <Leads onSelect={setSelectedUser} title={"Fresh Leads"} />
-        </div>
-        <div className="bg-card col-span-6 row-span-4 rounded-3xl flex justify-center items-center">
-          <LeadDetails
-            title={"User Details"}
-            item={selectedUser}
-            setItem={setSelectedUser}
+          <ListTable
+            isActive={isActive}
+            setIsActive={setIsActive}
+            onSelect={setSelectedUser}
+            title={"Fresh Leads"}
+            items={initialDetails.slice(0, 6)}
+            columns={leadsTablecolumns}
           />
         </div>
+        <div className="relative bg-card col-span-6 row-span-4 rounded-3xl flex justify-center items-center w-full h-full">
+          {selectedUser ? (
+            <>
+              <div className="w-full h-[90%] top-0 absolute p-1 shadow-md border-separate border-spacing-y-3">
+                <Tabs defaultValue="userDetails" className="h-full">
+                  <TabsList className="grid w-full grid-cols-2 text-left tracking-wider h-[4rem] items-center p-3 border-b-2">
+                    <TabsTrigger
+                      value="userDetails"
+                      className="tracking-wider text-lg"
+                    >
+                      User Details
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="activityLogs"
+                      className="tracking-wider text-lg"
+                    >
+                      Activity Logs
+                    </TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="userDetails">
+                    <LeadDetailsForm
+                      title={"User Details"}
+                      details={selectedUser}
+                      setItem={setSelectedUser}
+                    />
+                  </TabsContent>
+                  <TabsContent value="activityLogs">
+                    <ActivityLogs
+                      title={"Acivity Logs"}
+                      details={selectedUser}
+                      setItem={setSelectedUser}
+                    />
+                  </TabsContent>
+                </Tabs>
+              </div>
+              <div className="flex absolute w-full h-[10%] bottom-0 items-center justify-end p-3">
+                <ActionsFooter />
+              </div>
+            </>
+          ) : (
+            <p className="text-gray-500 w-full h-full flex justify-center items-center text-2xl">
+              Select a user to see details.
+            </p>
+          )}
+        </div>
         <div className="bg-card col-span-4 row-span-2 rounded-3xl flex justify-center items-center">
-          <Leads onSelect={setSelectedUser} title={"Callbacks"} />
+          <ListTable
+            isActive={isActive}
+            setIsActive={setIsActive}
+            onSelect={setSelectedUser}
+            title={"Callbacks"}
+            items={initialDetails.slice(5, 10)}
+            columns={leadsTablecolumns}
+          />
         </div>
-        {/* <div className="col-span-2 row-span-2 bg-amber-900 rounded-3xl flex justify-center items-center">
-          Leads for Today
-        </div>
-        <div className="col-span-4 row-span-2 bg-amber-900 rounded-3xl flex justify-center items-center">
-          Lead Details
-        </div>
-        <div className="col-span-4 row-span-2 bg-amber-900 rounded-3xl flex justify-center items-center">
-          Leads for Today
-        </div> */}
       </div>
     </div>
   );

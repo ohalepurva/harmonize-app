@@ -3,17 +3,17 @@ import { cn } from "@/lib/utils";
 type CalendarProps = {
   label: string;
   id?: string;
-  value: string;
-  className: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  // value: string;
+  className?: string;
+  // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Calendar: React.FC<CalendarProps> = ({
-  className,
+  className = "",
   label,
   id,
-  value,
-  onChange,
+  // value,
+  ...props
 }) => {
   const inputId = id ?? label.replace(/\s+/g, "").toLowerCase();
 
@@ -33,11 +33,11 @@ const Calendar: React.FC<CalendarProps> = ({
     <div className="relative w-full">
       <input
         id={inputId}
-        value={value}
-        onChange={onChange}
+        // value={value}
         type="date"
         className="placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex gap-4 h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pr-12 pl-4 appearance-none focus:outline-none"
         //remaining css styles in globals.css
+        {...props}
       />
       <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
         <svg

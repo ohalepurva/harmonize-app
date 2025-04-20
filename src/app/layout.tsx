@@ -1,6 +1,8 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import "./globals.css";
 import AppSidebar from "@/components/ui/app-sidebar";
+import { Toaster } from "sonner";
+import Banner from "./dashboard/_components/banner";
 
 export default function DashboardLayout({
   children,
@@ -16,11 +18,12 @@ export default function DashboardLayout({
             <body>
               <div className="flex">
                 <SidebarTrigger />
-                <div className="w-full h-[7rem] p-3 flex items-center">
-                  <h1 className="text-4xl">Hello Purva !</h1>
+                <div className="w-full h-[12rem] p-1 flex items-center">
+                  <Banner />
                 </div>
               </div>
               {children}
+              <Toaster />
             </body>
           </main>
         </SidebarProvider>

@@ -1,5 +1,6 @@
 import { Label } from "./label";
 import { Logo } from "./logo";
+import { LayoutDashboard, LibraryBig } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -23,14 +24,20 @@ const AppSidebar = () => {
             <SidebarMenuItem className="w-full border">
               <SidebarMenuButton size={"lg"}>
                 <a href="/">
-                  <Label className="text-lg">Dashboard</Label>
+                  <Label className="text-lg">
+                    <LayoutDashboard />
+                    Dashboard
+                  </Label>
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem className="w-full border">
               <SidebarMenuButton size={"lg"}>
                 <a href="/courses">
-                  <Label className="text-lg">Courses</Label>
+                  <Label className="text-lg">
+                    <LibraryBig />
+                    Courses
+                  </Label>
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>

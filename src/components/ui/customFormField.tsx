@@ -11,15 +11,18 @@ import {
 interface FormFieldType {
   label: string;
   value: string | Object | number;
+  name?: string | number;
   onChange: Function;
   options?: Array<string | number | Object>;
   id?: string;
   type: React.ElementType;
   className?: string;
   title?: string;
+  required?: boolean;
 }
-const FormField = ({
+const CustomFormField = ({
   id,
+  name,
   label,
   value,
   onChange,
@@ -27,16 +30,19 @@ const FormField = ({
   type: Component,
   className = "",
   title = "",
+  required = false,
 }: FormFieldType) => {
   return (
     <Component
       key={id ? id : convertToCamelCase(label)}
       label={label}
       value={value}
+      name={name}
       onChange={onChange}
       options={options}
       className={className}
       title={title}
+      required={required}
     >
       {options && (
         <>
@@ -62,4 +68,4 @@ const FormField = ({
   );
 };
 
-export default FormField;
+export default CustomFormField;
