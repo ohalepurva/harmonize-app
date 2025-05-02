@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  // relationMode = "prisma"
+}
+
+enum Gender {
+  Male
+  Female
+  Other
+}
+
+enum LeadStatus {
+  fresh
+  secondCall
+  thirdCall
+  visiting
+  visited
+  demoTaken
+  demoScheduled
+  demoMissed
+  interested
+  notInterested
+  unqualified
+  converted
+}
+
+model Courses {
+  courseId       Int     @id @default(autoincrement())
+  courseName     String @unique
+  description    String
+  feesType       String
+  planName       String?
+  duration       String
+  price          String
+  batchesPerWeek String?
+  billingCycle   String?
+  batchType      String?
+  courseStatus   String
+  createdBy      String
+  preferredMode  String
+  permissions    String?
+}
+
+model Enquiry {
+  id              Int       @id @default(autoincrement())
+  email           String    @unique @db.VarChar(255)
+  first_name      String    @db.VarChar(255)
+  last_name       String    @db.VarChar(255)
+  phone_primary   String    @db.VarChar(15)
+  phone_secondary String?   @db.VarChar(15)
+  referred_by     String?   @db.VarChar(255)
+  gender          Gender    
+  status          LeadStatus    
+  created_at      DateTime? @default(now()) @db.Timestamp(6)
+  dob             String?
+  course_name     String?
+
+  leadActivityLogs Lead_activity_logs[]
+}
+
+model Lead_activity_logs {
+  id               Int     @id @default(autoincrement())
+  enquiryId        Int?
+  enquiryMessage   String?
+  status           LeadStatus
+  callbackDateTime DateTime
+  createdBy        String?
+
+  enquiry             Enquiry?   @relation(fields: [enquiryId], references: [id])
+}
