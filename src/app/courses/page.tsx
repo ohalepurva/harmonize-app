@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label";
 import FormField from "@/components/ui/customFormField";
 import { convertToCamelCase } from "@/lib/utils";
 import { createCourseFields } from "@/lib/constants";
-import UploadFile from "@/components/ui/UploadFile";
+// import UploadFile from "@/components/ui/UploadFile";
 
 const Courses = () => {
   const [courseDetails, setCourseDetails] = useState({});
@@ -77,9 +77,9 @@ const Courses = () => {
                 })} */}
                 <div className="h-[4rem] flex items-end justify-center">
                   <Label></Label>
-                  <Button>
+                  {/* <Button>
                     <UploadFile />
-                  </Button>
+                  </Button> */}
                 </div>
               </div>
               <div className="grid grid-cols-2 divide-x-2 gap-1 px-4 py-2 rounded-lg">

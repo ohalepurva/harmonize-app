@@ -127,9 +127,8 @@
 
 input[type="date"],
 input[type="datetime-local"] {
-  color: oklch(0.556 0 0);
-  font-size: 1rem;
-  letter-spacing: 0.1rem;
+  /* font-size: 1rem; */
+  /* letter-spacing: 0.1rem; */
   min-width: 12rem;
   padding: 0.5rem 1rem;
 }
@@ -143,4 +142,8 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   width: 1.5rem;
   height: 1.5rem;
   cursor: pointer;
+}
+input[type="date"],
+input[type="datetime-local"]::placeholder {
+  /* color: oklch(0.556 0 0); */
 }

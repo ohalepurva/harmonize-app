@@ -3,17 +3,18 @@ import { cn } from "@/lib/utils";
 type DateTimeProps = {
   label: string;
   id?: string;
-  value: string;
-  className: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  className?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const DateTime: React.FC<DateTimeProps> = ({
   className,
   label,
   id,
-  value,
-  onChange,
+  // value,
+  // onChange,
+  ...props
 }) => {
   const inputId = id ?? label.replace(/\s+/g, "").toLowerCase();
 
@@ -22,13 +23,14 @@ const DateTime: React.FC<DateTimeProps> = ({
       <input
         id={inputId}
         type="datetime-local"
-        className={cn(
-          "placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex gap-4 h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pr-12 pl-4 appearance-none focus:outline-none",
-          className
-        )}
+        className="text-popover-foreground data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground
+        selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex gap-4 h-9 w-full 
+        min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow]
+         outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm 
+         pr-12 pl-4 appearance-none focus:outline-none"
         //remaining css styles in globals.css
-        value={value}
-        onChange={onChange}
+        // value={value}
+        {...props}
       />
       <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
         <svg

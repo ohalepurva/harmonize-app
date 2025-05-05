@@ -17,14 +17,13 @@ const CallbacksLeadsWrapper = ({ isActive, setIsActive, onSelect }) => {
     fetchData();
   }, [currentPageIndex]);
 
-  console.log({ data });
   return (
-    <div className="bg-card col-span-4 row-span-2 rounded-3xl flex justify-center items-center">
+    <div className="w-full h-full bg-card col-span-4 row-span-2 rounded-3xl flex justify-center items-center">
       <ListTable
         isActive={isActive ? isActive : 0}
         setIsActive={setIsActive}
         onSelect={onSelect}
-        title={"Fresh Leads"}
+        title={"Callbacks"}
         items={data?.items}
         columns={leadsTablecolumns}
         itemsLength={data?.totalRecords}

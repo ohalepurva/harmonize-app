@@ -180,10 +180,10 @@ export const initialDetails = [
 ];
 
 export const fields = [
-  { key: "firstName", label: "First Name", type: "input", value: "fName" },
-  { key: "lastName", label: "Last Name", type: "input" },
-  { key: "primaryNumber", label: "Primary number", type: "input" },
-  { key: "alternateNumber", label: "Alternate number", type: "input" },
+  { key: "first_name", label: "First Name", type: "input", value: "fName" },
+  { key: "last_name", label: "Last Name", type: "input" },
+  { key: "phone_primary", label: "Primary number", type: "input" },
+  { key: "phone_secondary", label: "Alternate number", type: "input" },
   {
     key: "status",
     label: "Status",
@@ -203,10 +203,10 @@ export const fields = [
     ],
   },
   { key: "email", label: "Email", type: "input" },
-  { key: "dateOfBirth", label: "Date of Birth", type: "date" },
+  { key: "dob", label: "Date of Birth", type: "date" },
   { key: "location", label: "Location", type: "input" },
   {
-    key: "course",
+    key: "course_name",
     label: "Course",
     type: "select",
     options: [
@@ -250,11 +250,23 @@ export const fields = [
 ];
 
 export const activityTableLogs = [
-  { label: "Callback Date & Time", type: DateTime },
-  // { label: "Enquiry Message", type: Textarea },
   {
+    key: "callbackdate",
+    label: "Callback Date & Time",
+    type: "dateTime",
+    value: "callbackdate",
+  },
+  {
+    key: "enquiryMessage",
+    value: "enquiryMessage",
+    label: "Enquiry Message",
+    type: "text",
+  },
+  {
+    key: "status",
     label: "Status",
-    type: Select,
+    value: "status",
+    type: "select",
     options: [
       "Fresh Lead",
       "First Call",
@@ -393,3 +405,19 @@ export const userActivityLogs = [
     createdBy: "Milton Lance",
   },
 ];
+
+export enum LeadStatus {
+  fresh = "Fresh Lead",
+  firstCall = "First Call",
+  secondCall = "Second Call",
+  thirdCall = "Third Call",
+  visiting = "Visiting",
+  visited = "Visited",
+  demoTaken = "Demo Taken",
+  demoScheduled = "Demo Scheduled",
+  demoMissed = "Demo Missed",
+  interested = "Interested",
+  notInterested = "Not Interested",
+  unqualified = "Unqualified",
+  converted = "Converted",
+}

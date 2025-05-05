@@ -3,39 +3,31 @@ import { cn } from "@/lib/utils";
 type CalendarProps = {
   label: string;
   id?: string;
-  // value: string;
+  value: string;
   className?: string;
-  // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Calendar: React.FC<CalendarProps> = ({
   className = "",
   label,
   id,
-  // value,
+  value,
   ...props
 }) => {
   const inputId = id ?? label.replace(/\s+/g, "").toLowerCase();
 
   return (
-    // <div className="relative">
-    //   <input
-    //     id={inputId}
-    //     type="date"
-    //     value={value}
-    //     onChange={onChange}
-    //     className={cn(
-    //       "placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex gap-4 h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm absolute right-3",
-    //       className
-    //     )}
-    //   />
-    // </div>
     <div className="relative w-full">
       <input
         id={inputId}
-        // value={value}
+        value={value}
         type="date"
-        className="placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex gap-4 h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pr-12 pl-4 appearance-none focus:outline-none"
+        className=" data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground
+         selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex gap-4 h-9 w-full 
+         min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow]
+          outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm 
+          pr-12 pl-4 appearance-none focus:outline-none"
         //remaining css styles in globals.css
         {...props}
       />

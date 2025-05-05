@@ -28,10 +28,9 @@ const FreshLeadsWrapper = ({ isActive, setIsActive, onSelect }) => {
     setTotalPages(data?.totalRecords / 4);
   }, [currentPageIndex]);
 
-  console.log({ data });
   return (
     // <div className="h-full w-full flex">
-    <div className="bg-card col-span-4 row-span-2 rounded-3xl">
+    <div className="w-full h-full bg-card col-span-4 row-span-2 rounded-3xl">
       <ListTable
         isActive={isActive ? isActive : 0}
         setIsActive={setIsActive}
@@ -41,7 +40,7 @@ const FreshLeadsWrapper = ({ isActive, setIsActive, onSelect }) => {
         columns={leadsTablecolumns}
         itemsLength={data?.totalRecords}
       />
-      <div className="flex items-center">
+      {/* <div className="flex items-center">
         <Pagination>
           <PaginationContent>
             <PaginationItem>
@@ -69,7 +68,7 @@ const FreshLeadsWrapper = ({ isActive, setIsActive, onSelect }) => {
             </PaginationItem>
           </PaginationContent>
         </Pagination>
-      </div>
+      </div> */}
     </div>
     // </div>
   );

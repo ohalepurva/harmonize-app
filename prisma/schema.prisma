@@ -17,6 +17,7 @@ enum Gender {
 
 enum LeadStatus {
   fresh
+  firstCall
   secondCall
   thirdCall
   visiting
