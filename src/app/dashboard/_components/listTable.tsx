@@ -1,9 +1,6 @@
 "use client";
-
-import { useEffect, useState } from "react";
-import useTableMaxRows from "../_hooks/useTableMaxRows";
 import Header from "./header";
-import { initialDetails, leadsTablecolumns, LeadStatus } from "@/lib/constants";
+import { LeadStatus } from "@/lib/constants";
 
 const ListTable = ({
   isActive,
@@ -13,8 +10,6 @@ const ListTable = ({
   items,
   columns,
 }) => {
-  const { maxRows, observerRef } = useTableMaxRows(initialDetails);
-  const [rowsToRender, setRowsToRender] = useState(4);
   return (
     <div className={`w-full h-full p-1`}>
       {/* <div className="text-left tracking-wider h-[4rem] flex items-center p-0.5 text-2xl border-b-2">
@@ -58,7 +53,7 @@ const ListTable = ({
           </tbody>
         </table>
       </div>
-      <div ref={observerRef} className="h-4 w-full"></div>
+      {/* <div ref={observerRef} className="h-4 w-full"></div> */}
     </div>
   );
 };

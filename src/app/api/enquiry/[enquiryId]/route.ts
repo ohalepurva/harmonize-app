@@ -6,7 +6,7 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { enquiryId: string } }
 ) {
-  const enquiryId = parseInt(params.enquiryId);
+  const enquiryId = await parseInt(params?.enquiryId);
 
   if (isNaN(enquiryId)) {
     return new Response(JSON.stringify({ error: "Invalid enquiry ID" }), {
@@ -14,7 +14,7 @@ export async function GET(
     });
   }
   const logs = await prisma.lead_activity_logs.findMany({
-    where: { id: enquiryId },
+    where: { enquiryId: enquiryId },
   });
 
   return new Response(JSON.stringify(logs), {

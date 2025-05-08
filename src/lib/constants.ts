@@ -293,11 +293,11 @@ export const leadsTablecolumns = [
     colspan: 3,
   },
   {
-    title: "Status",
+    title: "Course",
     colspan: 2,
   },
   {
-    title: "Course",
+    title: "Status",
     colspan: 2,
   },
 ];

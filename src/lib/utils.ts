@@ -24,3 +24,11 @@ export const formatDateTime = (isoDateString: string): string => {
     hour12: true,
   });
 };
+
+export function formatDateToDDMonthYYYY(isoString: string) {
+  const date = new Date(isoString);
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
+  return `${day} ${month} ${year}`;
+}

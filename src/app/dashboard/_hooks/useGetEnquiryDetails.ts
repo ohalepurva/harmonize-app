@@ -1,10 +1,10 @@
-import { generateRandomEnquiries } from "@/lib/utils";
+import { formatDateToDDMonthYYYY, generateRandomEnquiries } from "@/lib/utils";
 
 const useGetEnquiryDetails = () => {
   const fetchEnquiries = async ({ pageNumber = 1 }) => {
     try {
       const response = await fetch(
-        `api/enquiry/new?page=${pageNumber}&pageSize=4`
+        `api/enquiry/new?page=${pageNumber}&pageSize=6`
       );
       const data = await response.json();
       return data;
@@ -16,7 +16,7 @@ const useGetEnquiryDetails = () => {
   const fetchCallbacksEnquiries = async ({ pageNumber = 1 }) => {
     try {
       const response = await fetch(
-        `api/enquiry/callback?page=${pageNumber}&pageSize=4`
+        `api/enquiry/callback?page=${pageNumber}&pageSize=6`
       );
       const data = await response.json();
       return data;
@@ -167,11 +167,19 @@ const useGetEnquiryDetails = () => {
   //   });
   // };
 
-  const fetchAllLeadActions = async (enquiryId, setEnquiryActivityLogs) => {
+  const fetchAllLeadActions = async (enquiryId = "1") => {
     try {
       const response = await fetch(`api/enquiry/${enquiryId}`);
       const data = await response.json();
-      setEnquiryActivityLogs(data);
+      const updated = data
+        ?.sort(
+          (a, b) => new Date(b.callbackDateTime) - new Date(a.callbackDateTime)
+        )
+        .map((log) => ({
+          ...log,
+          callbackDateTime: formatDateToDDMonthYYYY(log.callbackDateTime),
+        }));
+      return updated;
     } catch (error) {
       console.error("failed to fetch users list", error);
     }

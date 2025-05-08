@@ -90,7 +90,6 @@ const LeadDetailsForm = ({ title, details, setItem }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
 
-    // resetOptions: details,
     defaultValues: {
       first_name: "",
       last_name: "",
@@ -128,7 +127,7 @@ const LeadDetailsForm = ({ title, details, setItem }) => {
         return <Input {...field} />;
       case "select":
         return (
-          <Select value={field.value} onValueChange={field.onChange}>
+          <Select {...field}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="--Select--" />
             </SelectTrigger>
@@ -153,11 +152,9 @@ const LeadDetailsForm = ({ title, details, setItem }) => {
         );
     }
   };
-  console.log("decwuyguih", details);
   return (
     <div className={`flex items-center h-full p-1 `}>
       <Card className="w-full">
-        {/* {details ? ( */}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -171,7 +168,6 @@ const LeadDetailsForm = ({ title, details, setItem }) => {
                     control={form.control}
                     name={item.key}
                     render={({ field }) => {
-                      console.log({ field });
                       return (
                         <FormItem>
                           <FormLabel>{item.label}</FormLabel>

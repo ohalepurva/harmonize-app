@@ -9,14 +9,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Leads from "../dashboard/_components/listTable";
-import LeadDetails from "../dashboard/_components/leadDetailsForm";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
-import FormField from "@/components/ui/customFormField";
-import { convertToCamelCase } from "@/lib/utils";
-import { createCourseFields } from "@/lib/constants";
-// import UploadFile from "@/components/ui/UploadFile";
 
 const Courses = () => {
   const [courseDetails, setCourseDetails] = useState({});

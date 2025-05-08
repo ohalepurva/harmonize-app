@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
   activityTableLogs,
+  LeadStatus,
   userActivityLogFields,
   userActivityLogs,
 } from "@/lib/constants";
@@ -23,7 +24,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import DateTime from "@/components/ui/dateTime";
 import {
@@ -42,6 +43,7 @@ import {
 } from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
+import { formatDateToDDMonthYYYY } from "@/lib/utils";
 
 const ActivityLogs = ({ title, details, setItem }) => {
   const [newUserActivity, setNewUserActivity] = useState({});
@@ -51,10 +53,6 @@ const ActivityLogs = ({ title, details, setItem }) => {
     >
   ) => {
     const { name, value } = e.target;
-    // setItem((prev) => ({
-    //   ...prev,
-    //   [name]: value,
-    // }));
     setNewUserActivity((prev) => ({
       ...prev,
       [name]: value,
@@ -67,11 +65,14 @@ const ActivityLogs = ({ title, details, setItem }) => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // activityTableLogs?.push(...newUserActivity);
-    console.log("Submitted Data:", newUserActivity);
-  };
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   details.push({ ...newUserActivity });
+  //   console.log("Submitted Data:", newUserActivity);
+  //   toast("Changes Saved", {
+  //     description: `${formatDateToDDMonthYYYY(new Date.now())}`,
+  //   });
+  // };
 
   const formSchema = z.object({
     status: z.string().nonempty({
@@ -92,17 +93,31 @@ const ActivityLogs = ({ title, details, setItem }) => {
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    details.push(values);
+    console.log("Submitted Data:", values);
+    toast("Changes Saved", {
+      description: `${formatDateToDDMonthYYYY(new Date.now())}`,
+    });
   }
-  const getFieldComponent = (item) => {
+
+  useEffect(() => {
+    if (details && Object.keys(details).length > 0) {
+      form.reset({
+        ...details,
+        dob: details.dob ? new Date(details.dob) : new Date(),
+      });
+    }
+  }, [details]);
+
+  const getFieldComponent = (item, field) => {
     switch (item.type) {
       case "input":
-        return <Input />;
+        return <Input {...field} />;
       case "text":
-        return <Textarea className="h-full" />;
+        return <Textarea {...field} className="h-full" />;
       case "select":
         return (
-          <Select>
+          <Select value={field.value} onValueChange={field.onChange}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="--Select--" />
             </SelectTrigger>
@@ -118,10 +133,17 @@ const ActivityLogs = ({ title, details, setItem }) => {
           </Select>
         );
       case "dateTime":
-        return <DateTime label={item.label} />;
+        return (
+          <DateTime
+            value={field.value?.toISOString().split("T")[0]}
+            onChange={(e) => field.onChange(new Date(e.target.value))}
+            label={item.label}
+          />
+        );
     }
   };
 
+  console.log({ details, newUserActivity });
   return (
     <div className={`w-full h-full p-1`}>
       <div>
@@ -132,7 +154,7 @@ const ActivityLogs = ({ title, details, setItem }) => {
           <CardContent className="flex items-center">
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                // onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-8 w-full h-full mx-auto p-6 text-white rounded-2xl"
               >
                 <div className="grid grid-cols-2 gap-4">
@@ -149,7 +171,7 @@ const ActivityLogs = ({ title, details, setItem }) => {
                             <FormItem>
                               <FormLabel>{item.label}</FormLabel>
                               <FormControl>
-                                {getFieldComponent(item)}
+                                {getFieldComponent(item, field)}
                               </FormControl>
                             </FormItem>
                           )}
@@ -162,19 +184,21 @@ const ActivityLogs = ({ title, details, setItem }) => {
             </Form>
           </CardContent>
           <CardFooter className="flex justify-end gap-4">
-            <Button size={"lg"} variant="outline">
+            <Button
+              size={"lg"}
+              variant="outline"
+              onClick={() => {
+                form.reset({
+                  status: "",
+                  enquiryMessage: "",
+                  dateOfBirth: new Date(),
+                });
+              }}
+            >
               Cancel
             </Button>
             <Button
-              onClick={() =>
-                toast("Changes Saved", {
-                  description: "Sunday, December 03, 2023 at 9:00 AM",
-                  // action: {
-                  //   label: "Undo",
-                  //   onClick: () => console.log("Undo"),
-                  // },
-                })
-              }
+              onClick={(e) => onsubmit(e)}
               size={"lg"}
               variant="secondary"
             >
@@ -183,57 +207,56 @@ const ActivityLogs = ({ title, details, setItem }) => {
           </CardFooter>
         </Card>
       </div>
-      {details && (
-        <div>
-          {details?.map((activity, index) => {
-            // const date = formatDateTime(activity.loggedAt);
-            const date = activity.loggedAt.toString().slice(0, 10);
-            return (
-              <Accordion
-                type="multiple"
-                key={index}
-                className="rounded-xl pr-3 m-3 border-2 shadow-3xl"
-              >
-                {date && (
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger>
-                      <p className="pl-3 tracking-wider text-md">{date}</p>
-                    </AccordionTrigger>
-                    <AccordionContent className="pr-3 m-6">
-                      <div className={`grid grid-cols-2 auto-cols-auto gap-2`}>
-                        {userActivityLogFields?.map(({ key, label }) => {
-                          const isLongText =
-                            typeof activity[key] === "string" &&
-                            activity[key].length > 30;
-                          return (
-                            <div
-                              key={key}
-                              className={`${isLongText ? "row-span-2" : ""}`}
-                            >
-                              <Label className="text-muted-foreground text-sm text-left tracking-wider h-[2rem] p-0.5 ">
-                                {label}
-                              </Label>
-                              {isLongText ? (
-                                <Textarea
-                                  disabled
-                                  value={activity[key]}
-                                  className={`h-fit p-2`}
-                                />
-                              ) : (
-                                <p className="mt-1 ml-1">{activity[key]}</p>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
-              </Accordion>
-            );
-          })}
-        </div>
-      )}
+      {details?.map((action) => {
+        return (
+          <div>
+            <Accordion
+              type="multiple"
+              className="rounded-xl pr-3 m-3 border-2 shadow-3xl"
+            >
+              <AccordionItem value="item-1">
+                <AccordionTrigger>
+                  <p className="pl-3 tracking-wider text-md">
+                    {action.callbackDateTime}
+                  </p>
+                </AccordionTrigger>
+                <AccordionContent className="pr-3 m-6">
+                  <div className={`grid grid-cols-2 auto-cols-auto gap-2`}>
+                    {userActivityLogFields?.map(({ key, label }) => {
+                      const isLongText =
+                        typeof action[key] === "string" &&
+                        action[key].length > 30;
+                      return (
+                        <div
+                          key={key}
+                          className={`${isLongText ? "row-span-2" : ""}`}
+                        >
+                          <Label className="text-muted-foreground text-sm text-left tracking-wider h-[2rem] p-0.5 ">
+                            {label}
+                          </Label>
+                          {isLongText ? (
+                            <Textarea
+                              disabled
+                              value={action[key]}
+                              className={`h-fit p-2`}
+                            />
+                          ) : (
+                            <p className="mt-1 ml-1">
+                              {key === "status"
+                                ? LeadStatus[action[key]]
+                                : action[key]}
+                            </p>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        );
+      })}
     </div>
   );
 };
